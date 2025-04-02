@@ -5,7 +5,7 @@ import io
 import random
 
 # サンプル従業員のリスト
-employees = ["佐藤 太郎", "鈴木 花子", "田中 一郎", "山田 次郎", "高橋 美咲"]
+employees = ["佐藤 ルタン", "鈴木 ルタ子", "田中 ルタ郎", "山田 ルタ郎", "高橋 ルタ美"]
 
 # 日付の範囲（10日間）
 dates = pd.date_range("2025-03-01", periods=10, freq="D")
