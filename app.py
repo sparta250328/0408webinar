@@ -32,24 +32,29 @@ df = pd.DataFrame(data)
 # タイトル
 st.title("SpartaHR")
 menu = st.sidebar.radio("メニューを選択", ["勤怠管理", "組織管理", "社員検索", "設定"])
+
 if menu == "勤怠管理":
     st.header("従業員の勤怠データ")
     # 表の表示
     st.dataframe(df, use_container_width=True)
 
-    # CSVデータの準備とダウンロードボタン
-    csv_buffer = io.StringIO()
-    df.to_csv(csv_buffer, index=False)
+    # CSVデータの準備とダウンロードボタン（Shift-JIS対応）
+    csv_buffer = io.BytesIO()
+    df.to_csv(csv_buffer, index=False, encoding="shift_jis")
+    csv_buffer.seek(0)
+
     st.download_button(
-        label="\U0001F4E5 CSVダウンロード",
-        data=csv_buffer.getvalue(),
+        label="\U0001F4E5 CSVダウンロード（Shift-JIS）",
+        data=csv_buffer,
         file_name="attendance_report.csv",
         mime="text/csv"
     )
+
 elif menu == "組織管理":
     st.header("組織管理")
     st.write("組織管理の機能はまだ実装されていません。")
-elif menu == "社員検索":   
+
+elif menu == "社員検索":
     st.header("社員検索")
     st.text_input("社員コードを入力してください", "")
     if st.button("検索"):
@@ -59,6 +64,7 @@ elif menu == "社員検索":
         st.write("役職: エンジニア")
         st.write("グレード：4")
         st.write("入社日: 2023-01-01")
+
 elif menu == "設定":
     st.header("設定")
     st.write("設定の機能はまだ実装されていません。")
